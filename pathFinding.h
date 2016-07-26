@@ -14,7 +14,7 @@ class PFSystem {
 		char ** generateMap();
 		void printMap();
 		
-		char ** map;
+		char **  map;
 		int width;
 		int height;
 		Player * player;

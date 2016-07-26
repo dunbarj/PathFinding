@@ -20,7 +20,7 @@ PFSystem::PFSystem(int inWidth, int inHeight) {
 	height = inHeight;
 	player = new Player(1, 1);
 	followers = NULL;
-	map = NULL;
+	//map = NULL;
 	map = generateMap();
 	printMap();
 }
@@ -30,11 +30,14 @@ void PFSystem::menu() {
 }
 
 char ** PFSystem::generateMap() {
+	/*
 	if (map != NULL) {
 		free(map);
 	}
+	*/
+	map = (char **) malloc(sizeof(char *) * height);
 	for (int i = 0; i < height; i++) {
-		map[i] = (char *) calloc(width, sizeof(char));
+		map[i] = (char *) malloc(sizeof(char) * width);
 	}
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
