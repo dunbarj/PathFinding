@@ -10,6 +10,7 @@ int main(int argc, char * argv[]) {
 	else {
 		system = new PFSystem(atoi(argv[1]), atoi(argv[2]));
 	}
+	fflush(0);
 	while (1) {
 		system->generateMap();
 		system->printMap();
