@@ -22,6 +22,7 @@ PFSystem::PFSystem(int inWidth, int inHeight) {
 	followers = NULL;
 	map = NULL;
 	map = generateMap();
+	printMap();
 }
 
 void PFSystem::menu() {
@@ -32,12 +33,29 @@ char ** PFSystem::generateMap() {
 	if (map != NULL) {
 		free(map);
 	}
-	map = (char **) calloc(width * sizeof(char), height);
+	for (int i = 0; i < height; i++) {
+		map[i] = (char *) calloc(width, sizeof(char));
+	}
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			if (i == 0 || i == (height - 1)) {
+				map[i][j] = '@';
+			}
+			else if (j == 0 || j == (width - 1)) {
+				map[i][j] = '@';
+			}
+			else {
+				map[i][j] = ' ';
+			}
+		}
+	}
 	return map;
 }
 
 void PFSystem::printMap() {
-
+	for (int i = 0; i < height; i++) {
+		cout << &map[i][0] << endl;
+	}
 }
 
 
