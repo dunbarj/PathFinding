@@ -23,10 +23,9 @@ class PFSystem {
 
 class Player {
 	public:
-		Player(int x, int y);
-		
-		int xPos;
-		int yPos;
+		Player(int x, int y, int maxX, int maxY);
+		void getPlayerMovement();
+		int posX, posY, maxBoundsX, maxBoundsY;
 };
 
 class Follower {

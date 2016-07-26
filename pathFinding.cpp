@@ -10,7 +10,11 @@ int main(int argc, char * argv[]) {
 	else {
 		system = new PFSystem(atoi(argv[1]), atoi(argv[2]));
 	}
-	system->menu();
+	while (1) {
+		system->generateMap();
+		system->printMap();
+		system->player->getPlayerMovement();
+	}
 	return 0;	
 }
 
@@ -18,11 +22,9 @@ int main(int argc, char * argv[]) {
 PFSystem::PFSystem(int inWidth, int inHeight) {
 	width = inWidth;
 	height = inHeight;
-	player = new Player(1, 1);
+	player = new Player(1, 1, width, height);
 	followers = NULL;
-	//map = NULL;
-	map = generateMap();
-	printMap();
+	map = NULL;
 }
 
 void PFSystem::menu() {
@@ -30,11 +32,9 @@ void PFSystem::menu() {
 }
 
 char ** PFSystem::generateMap() {
-	/*
 	if (map != NULL) {
 		free(map);
 	}
-	*/
 	map = (char **) malloc(sizeof(char *) * height);
 	for (int i = 0; i < height; i++) {
 		map[i] = (char *) malloc(sizeof(char) * width);
@@ -48,7 +48,12 @@ char ** PFSystem::generateMap() {
 				map[i][j] = '@';
 			}
 			else {
-				map[i][j] = ' ';
+				if (i == player->posY && j == player->posX) {
+					map[i][j] = 'X';
+				}
+				else {
+					map[i][j] = ' ';
+				}
 			}
 		}
 	}
@@ -63,9 +68,52 @@ void PFSystem::printMap() {
 
 
 /* Player functions */
-Player::Player(int x, int y) {
-	xPos = x;
-	yPos = y;
+Player::Player(int x, int y, int maxX, int maxY) {
+	posX = x;
+	posY = y;
+	maxBoundsX = maxX;
+	maxBoundsY = maxY;
+}
+
+void Player::getPlayerMovement() {
+	char input;
+	bool valid = false;
+	while (!valid) {
+		cout << "Enter direction (w,a,s,d): ";
+		cin >> input;
+		switch (input) {
+			case 'w':
+				posY = posY - 1;
+				if (posY <= 0) {
+					posY = 1;
+				}
+				valid = true;
+				break;
+			case 'a':
+				posX = posX - 1;
+				if (posX <= 0) {
+					posX = 1;
+				}
+				valid = true;
+				break;
+			case 's':
+				posY = posY + 1;
+				if (posY >= (maxBoundsY - 1)) {
+					posY = maxBoundsY - 2;
+				}
+				valid = true;
+				break;
+			case 'd':
+				posX = posX + 1;
+				if (posX >= (maxBoundsX - 1)) {
+					posX = maxBoundsX - 2;
+				}
+				valid = true;
+				break;
+			default:
+				cout << "Invalid input!" << endl;
+		}
+	}
 }
 
 
