@@ -38,7 +38,7 @@ char ** PFSystem::generateMap() {
 	}
 	map = (char **) malloc(sizeof(char *) * height);
 	for (int i = 0; i < height; i++) {
-		map[i] = (char *) malloc(sizeof(char) * width);
+		map[i] = (char *) calloc(width, sizeof(char));
 	}
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
@@ -62,8 +62,9 @@ char ** PFSystem::generateMap() {
 }
 
 void PFSystem::printMap() {
+	system("clear");
 	for (int i = 0; i < height; i++) {
-		cout << &map[i][0] << endl;
+		printf("%s\n", &map[i][0]);
 	}
 }
 
@@ -111,6 +112,8 @@ void Player::getPlayerMovement() {
 				}
 				valid = true;
 				break;
+			case 'c':
+				exit(0);
 			default:
 				cout << "Invalid input!" << endl;
 		}
