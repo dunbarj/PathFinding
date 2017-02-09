@@ -68,6 +68,41 @@ void PFSystem::printMap() {
 	}
 }
 
+int * PFSystem::getFollowerMovement(Follower * flwr, int targetX, int targetY) {
+	int openNum = 0;
+	int closedNum = 0;
+	Node ** openList = (Node **) malloc(100 * sizeof(Node *));
+	Node ** closedList = (Node **) malloc(100 * sizeof(Node *));
+	Node * start = (Node *) malloc(sizeof(Node));
+	start->parent = NULL;
+	start->x = flwr->xPos;
+	start->y = flwr->yPos;
+	start->f = 0;
+	start->g = 0;
+	start->h = Mathf.abs(targetX - flwr->posX) + Mathf.abs(targetY - flwr->posY);
+	openList[openNum++] = start;
+	while (openNum > 0) {
+		// Set node with lowest F score as qnode
+		Node * qnode = openList[0];
+
+		// Remove qnode from open list
+		for (int i = 0; i < openNum - 1; i++) {
+			openList[i] = openList[i+1];
+		}
+		openList[i] = NULL;
+		openNum--;
+		
+		// Generate successors
+		int num = 4;
+		Node ** successors = (Node **) malloc(num * sizeof(Node *));
+		for (int i = 0; i < num; i++) {
+			successors[i] = (Node *) malloc(sizeof(Node));
+			successors[i]->parent = qnode;
+		}
+		// 0 is up, then clockwise
+	}
+}
+
 
 /* Player functions */
 Player::Player(int x, int y, int maxX, int maxY) {

@@ -10,6 +10,12 @@ using namespace std;
 class Player;
 class Follower;
 
+struct Node {
+	Node * parent;
+	int x, y;
+	int f, g, h;	
+};
+
 class PFSystem {
 	public:
 		PFSystem(int width, int height);
@@ -22,6 +28,7 @@ class PFSystem {
 		int height;
 		Player * player;
 		Follower ** followers;
+		int * getFollowerMovement(Follower * flwr, int targetX, int targetY);
 };
 
 class Player {
@@ -34,6 +41,7 @@ class Player {
 class Follower {
 	public:
 		Follower(int x, int y);
+		bool isTurn;
 		int xPos;
 		int yPos;
 };
